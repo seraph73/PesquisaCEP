@@ -8358,7 +8358,7 @@ namespace PesquisaCEP.Droid
 			public const int notify_panel_notification_icon_bg = 2131165300;
 			
 			// aapt resource value: 0x7F070075
-			public const int tab_about = 2131165301;
+			public const int search = 2131165301;
 			
 			// aapt resource value: 0x7F070076
 			public const int tab_feed = 2131165302;

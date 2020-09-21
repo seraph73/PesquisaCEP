@@ -21,4 +21,16 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Outro\ViaCEP\ViaCEP\ViaCEP.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\PaginaPesquisaLocal.xaml.cs">
+      <DependentUpon>PaginaPesquisaLocal.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\PaginaPesquisaLocal.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

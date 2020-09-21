@@ -11,20 +11,19 @@ using Xamarin.Essentials;
 
 namespace PesquisaCEP.Views
 {
-    public partial class NewItemPage : ContentPage
+    public partial class PaginaPesquisarCEP : ContentPage
     {
         public Item Item { get; set; }
 
-        public NewItemPage()
+        public PaginaPesquisarCEP()
         {
             InitializeComponent();
             var current = Connectivity.NetworkAccess;
             if (current != NetworkAccess.Internet)
             {
-                StackLayoutPesquisa.IsVisible = false;
-                StackLayoutConexaoInternet.IsVisible = true;
+                EsconderPesquisa();
             }
-            BindingContext = new NewItemViewModel();
+            BindingContext = new ViewModelPesquisarCEP();
         }
         
         private void EntryCep_TextChanged(object sender, TextChangedEventArgs e)
@@ -76,8 +75,7 @@ namespace PesquisaCEP.Views
             var current = Connectivity.NetworkAccess;
             if (current == NetworkAccess.Internet)
             {
-                StackLayoutPesquisa.IsVisible = true;
-                StackLayoutConexaoInternet.IsVisible = false;
+                EsconderConexao();
             }
         }
 
@@ -86,9 +84,20 @@ namespace PesquisaCEP.Views
             var current = Connectivity.NetworkAccess;
             if (current != NetworkAccess.Internet)
             {
-                StackLayoutPesquisa.IsVisible = false;
-                StackLayoutConexaoInternet.IsVisible = true;
+                EsconderPesquisa();
             }
+        }
+
+        public void EsconderConexao()
+        {
+            StackLayoutPesquisa.IsVisible = true;
+            StackLayoutConexaoInternet.IsVisible = false;
+        }
+
+        public void EsconderPesquisa()
+        {
+            StackLayoutPesquisa.IsVisible = false;
+            StackLayoutConexaoInternet.IsVisible = true;
         }
     }
 }
