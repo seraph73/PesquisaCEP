@@ -1,20 +1,28 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:PesquisaCEP.Behaviours"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PesquisaCEP.Views.NewItemPage"
              Shell.PresentationMode="ModalAnimated"
              Title="New Item">
     <ContentPage.Content>
-        <StackLayout Spacing="3" Padding="15">
-            <Entry x:Name="EntryCep" Placeholder="Digite aqui o CEP desejado." 
-                   Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" 
+
+        <StackLayout Spacing="3" Padding="15" VerticalOptions="Center">
+           
+            <StackLayout x:Name="StackLayoutConexaoInternet" IsVisible="false">
+                <Image Source="nosignal.png" WidthRequest="40"></Image>
+                <Label Text="Dispositivo Sem Conexão com a Internet" HorizontalOptions="Center"></Label>
+                <Button Text="Clique Aqui Para Tentar Novamente" Clicked="Button_Clicked"></Button>
+            </StackLayout>
+            <StackLayout x:Name="StackLayoutPesquisa">
+                <Entry x:Name="EntryCep" Placeholder="Digite aqui o CEP desejado." 
+                   Text="{Binding CEP, Mode=TwoWay}" FontSize="Medium" 
                    Keyboard="Numeric"
                    TextChanged="EntryCep_TextChanged">
-            </Entry>                   
-                   
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </Entry>
+
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="ButtonPesquisar" IsEnabled="False" Clicked="ButtonPesquisar_Clicked" Text="Pesquisar" Command="{Binding ComandoPesquisar}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

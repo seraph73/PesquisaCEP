@@ -7,6 +7,7 @@ using Xamarin.Forms.Xaml;
 using PesquisaCEP.Models;
 using PesquisaCEP.ViewModels;
 using System.Text.RegularExpressions;
+using Xamarin.Essentials;
 
 namespace PesquisaCEP.Views
 {
@@ -17,11 +18,26 @@ namespace PesquisaCEP.Views
         public NewItemPage()
         {
             InitializeComponent();
+            var current = Connectivity.NetworkAccess;
+            if (current != NetworkAccess.Internet)
+            {
+                StackLayoutPesquisa.IsVisible = false;
+                StackLayoutConexaoInternet.IsVisible = true;
+            }
             BindingContext = new NewItemViewModel();
         }
         
         private void EntryCep_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(String.IsNullOrWhiteSpace(e.NewTextValue))
+            {
+                ButtonPesquisar.IsEnabled = false;
+            }
+            else
+            {
+                ButtonPesquisar.IsEnabled = true;
+            }
+
             if (string.IsNullOrEmpty(e.NewTextValue))
             {
                 (sender as Entry).Text = "";
@@ -53,6 +69,26 @@ namespace PesquisaCEP.Views
 
             EntryCep.TranslationX = 0;
 
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            var current = Connectivity.NetworkAccess;
+            if (current == NetworkAccess.Internet)
+            {
+                StackLayoutPesquisa.IsVisible = true;
+                StackLayoutConexaoInternet.IsVisible = false;
+            }
+        }
+
+        private void ButtonPesquisar_Clicked(object sender, EventArgs e)
+        {
+            var current = Connectivity.NetworkAccess;
+            if (current != NetworkAccess.Internet)
+            {
+                StackLayoutPesquisa.IsVisible = false;
+                StackLayoutConexaoInternet.IsVisible = true;
+            }
         }
     }
 }

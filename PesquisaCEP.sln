@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PesquisaCEP.Android", "PesquisaCEP\PesquisaCEP.Android\PesquisaCEP.Android.csproj", "{C5BFA3D4-CEFA-46B0-B21A-04503CDB3FF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PesquisaCEP", "PesquisaCEP\PesquisaCEP\PesquisaCEP.csproj", "{4FEB2D07-D94D-4D28-BD8E-35CFAB91AF22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PesquisaCEP", "PesquisaCEP\PesquisaCEP\PesquisaCEP.csproj", "{4FEB2D07-D94D-4D28-BD8E-35CFAB91AF22}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViaCEP", "..\Outro\ViaCEP\ViaCEP\ViaCEP.csproj", "{19BD9170-B95D-4497-94AB-CE8597A3FEAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{4FEB2D07-D94D-4D28-BD8E-35CFAB91AF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FEB2D07-D94D-4D28-BD8E-35CFAB91AF22}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FEB2D07-D94D-4D28-BD8E-35CFAB91AF22}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{19BD9170-B95D-4497-94AB-CE8597A3FEAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19BD9170-B95D-4497-94AB-CE8597A3FEAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19BD9170-B95D-4497-94AB-CE8597A3FEAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19BD9170-B95D-4497-94AB-CE8597A3FEAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

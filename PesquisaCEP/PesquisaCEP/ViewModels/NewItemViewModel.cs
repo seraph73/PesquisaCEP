@@ -1,65 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using PesquisaCEP.Models;
+using ViaCEP;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace PesquisaCEP.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string text;
-        private string description;
+        private string cep;
+        private ResultadoConsulta resultadoConsulta;
+        public Command ComandoPesquisar { get; }
 
         public NewItemViewModel()
         {
-            SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
+            ComandoPesquisar = new Command(Pesquisar, Validate);
+            resultadoConsulta = new ResultadoConsulta();
             this.PropertyChanged +=
-                (_, __) => SaveCommand.ChangeCanExecute();
+                (_, __) => ComandoPesquisar.ChangeCanExecute();
         }
 
-        private bool ValidateSave()
+        private bool Validate()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return false;
         }
 
-        public string Text
+        public string CEP
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => cep;
+            set => SetProperty(ref cep, value);
         }
 
-        public string Description
+        private async void Pesquisar()
         {
-            get => description;
-            set => SetProperty(ref description, value);
-        }
+            var current = Connectivity.NetworkAccess;
+            if (current == NetworkAccess.Internet)
+            {
+                Consulta consulta = new Consulta();
+                resultadoConsulta = consulta.Buscar(CEP);
+            }            
 
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-
-        private async void OnCancel()
-        {
-            // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
-        }
-
-        private async void OnSave()
-        {
+            /*
             Item newItem = new Item()
             {
                 Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
+                Text = Text
             };
 
             await DataStore.AddItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync("..");*/
         }
     }
 }
