@@ -13,18 +13,22 @@
                 <Button Text="Clique Aqui Para Tentar Novamente" Clicked="Button_Clicked"></Button>
             </StackLayout>
             <StackLayout x:Name="StackLayoutPesquisa" VerticalOptions="Center">
-                <StackLayout Padding="0 0 0 0">
+                <StackLayout Padding="0, 0, 0, 25">
                     <Entry x:Name="EntryCep" Placeholder="Digite aqui o CEP desejado." 
                    Text="{Binding CEP, Mode=TwoWay}" FontSize="Medium" 
                    Keyboard="Numeric"
                    TextChanged="EntryCep_TextChanged">
                     </Entry>
-
-                    <StackLayout Orientation="Horizontal">
-                        <Button x:Name="ButtonPesquisar" IsEnabled="False" Clicked="ButtonPesquisar_Clicked" Text="Pesquisar" Command="{Binding ComandoPesquisar}" HorizontalOptions="FillAndExpand"></Button>
-                    </StackLayout>
+                    <Button x:Name="ButtonPesquisar" IsEnabled="False" Clicked="ButtonPesquisar_Clicked" Text="Pesquisar" Command="{Binding ComandoPesquisar}" HorizontalOptions="FillAndExpand"></Button>
                 </StackLayout>
-                <Label Text="{Binding ResultadoString}" FontSize="14" LineBreakMode="WordWrap" Padding="25 0 0 0 "></Label>
+                <Frame OutlineColor="Black" Padding="25, 25, 0, 25">
+                    <Label x:Name="LabelResultado" Text="{Binding ResultadoString}" FontSize="14" LineBreakMode="WordWrap"
+                           PropertyChanged="LabelResultado_PropertyChanged"></Label>
+                </Frame>
+                <StackLayout Padding="0, 25, 0, 0">
+                    <Button x:Name="ButtonSalvar" IsEnabled="False" Text="Salvar CEP" 
+                        Command="{Binding ComandoSalvar}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

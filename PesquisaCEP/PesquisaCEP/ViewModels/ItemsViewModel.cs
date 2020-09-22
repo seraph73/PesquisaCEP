@@ -13,7 +13,6 @@ namespace PesquisaCEP.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private Item _selectedItem;
-
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }

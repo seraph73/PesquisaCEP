@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 using System.Windows.Input;
+using Data;
 using PesquisaCEP.Models;
+using PesquisaCEP.Services;
+using PesquisaCEP.ViewModels.Services;
+using PesquisaCEP.Views;
 using ViaCEP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -14,15 +19,16 @@ namespace PesquisaCEP.ViewModels
     {
         private string cep;
         private string resultadoString;
-        private ResultadoConsulta resultadoConsulta;
+        private EnderecoCompleto resultadoConsulta;
         public Command ComandoPesquisar { get; }
-
+        public Command ComandoSalvar { get; }
+        private readonly IMessageService messageService;
         public ViewModelPesquisarCEP()
         {
             ComandoPesquisar = new Command(Pesquisar, Validate);
-            resultadoConsulta = new ResultadoConsulta();
-            this.PropertyChanged +=
-                (_, __) => ComandoPesquisar.ChangeCanExecute();
+            ComandoSalvar = new Command(Salvar);
+            resultadoConsulta = new EnderecoCompleto();
+            messageService = DependencyService.Get<IMessageService>();
         }
 
         private bool Validate()
@@ -41,8 +47,29 @@ namespace PesquisaCEP.ViewModels
             get => resultadoString;
             set => SetProperty(ref resultadoString, value);
         }
+        
+        private void Salvar()
+        {
+            Database db = new Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PesquisaCEP.db3"));
+            if (db.CepJaSalvo(resultadoConsulta.CEP))
+            {
+                messageService.ShowAsync("Este CEP já está salvo.");
+            }
+            else
+            {
+                int result = db.SalvarEndereco(resultadoConsulta);
+                if (result >= 1)
+                {
+                    messageService.ShowAsync("CEP salvo com sucesso.");
+                }
+                else
+                {
+                    messageService.ShowAsync("Ocorreu um erro e por isso o CEP não foi salvo.");
+                }
+            }
+        }
 
-        private async void Pesquisar()
+        private void Pesquisar()
         {
             
             var current = Connectivity.NetworkAccess;
@@ -59,19 +86,7 @@ namespace PesquisaCEP.ViewModels
                     ResultadoString = "Ocorreu um erro! Verifique se o CEP está correto e tente novamente.";
                 }
                 
-            }          
-
-            /*
-            Item newItem = new Item()
-            {
-                Id = Guid.NewGuid().ToString(),
-                Text = Text
-            };
-
-            await DataStore.AddItemAsync(newItem);
-
-            // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");*/
+            }
         }
     }
 }

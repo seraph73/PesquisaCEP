@@ -8,13 +8,13 @@ using PesquisaCEP.Models;
 using PesquisaCEP.ViewModels;
 using System.Text.RegularExpressions;
 using Xamarin.Essentials;
+using System.Runtime.CompilerServices;
+using PesquisaCEP.Services;
 
 namespace PesquisaCEP.Views
 {
     public partial class PaginaPesquisarCEP : ContentPage
     {
-        public Item Item { get; set; }
-
         public PaginaPesquisarCEP()
         {
             InitializeComponent();
@@ -22,10 +22,11 @@ namespace PesquisaCEP.Views
             if (current != NetworkAccess.Internet)
             {
                 EsconderPesquisa();
-            }
+            }            
             BindingContext = new ViewModelPesquisarCEP();
+            BindingContextChanged += (object sender, EventArgs e) => { MessagingCenter.Send<Page>(this, "BindingContextChanged.ViewModelPesquisarCEP"); };
         }
-        
+
         private void EntryCep_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(String.IsNullOrWhiteSpace(e.NewTextValue))
@@ -98,6 +99,18 @@ namespace PesquisaCEP.Views
         {
             StackLayoutPesquisa.IsVisible = false;
             StackLayoutConexaoInternet.IsVisible = true;
+        }
+
+        private void LabelResultado_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(LabelResultado.Text))
+            {
+                ButtonSalvar.IsEnabled = true;
+            }
+            else
+            {
+                ButtonSalvar.IsEnabled = false;
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace PesquisaCEP
         public App()
         {
             InitializeComponent();
-
+            DependencyService.Register<ViewModels.Services.IMessageService, Views.Services.MessageService>();
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
