@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using PesquisaCEP.Models;
 using PesquisaCEP.ViewModels;
 using System.Text.RegularExpressions;
 using Xamarin.Essentials;
 using System.Runtime.CompilerServices;
-using PesquisaCEP.Services;
 
 namespace PesquisaCEP.Views
 {

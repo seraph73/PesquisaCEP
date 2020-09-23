@@ -1,7 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using PesquisaCEP.Services;
 using PesquisaCEP.Views;
 
 namespace PesquisaCEP
@@ -13,7 +12,6 @@ namespace PesquisaCEP
         {
             InitializeComponent();
             DependencyService.Register<ViewModels.Services.IMessageService, Views.Services.MessageService>();
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 

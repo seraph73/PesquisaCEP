@@ -4,12 +4,12 @@ using PesquisaCEP.ViewModels;
 
 namespace PesquisaCEP.Views
 {
-    public partial class ItemDetailPage : ContentPage
+    public partial class PaginaDetalhesCEP : ContentPage
     {
-        public ItemDetailPage()
+        public PaginaDetalhesCEP()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = new ViewModelDetalhesCEP();
         }
     }
 }

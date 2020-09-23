@@ -11,7 +11,7 @@ namespace PesquisaCEP
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
+            Routing.RegisterRoute(nameof(PaginaDetalhesCEP), typeof(PaginaDetalhesCEP));
             Routing.RegisterRoute(nameof(PaginaPesquisarCEP), typeof(PaginaPesquisarCEP));
         }
 

@@ -1,29 +1,23 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
-using PesquisaCEP.Models;
 using Xamarin.Forms;
 
 namespace PesquisaCEP.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class ItemDetailViewModel : BaseViewModel
+    public class ViewModelDetalhesCEP : BaseViewModel
     {
         private string itemId;
-        private string text;
-        private string description;
+        private string resultadostring;
         public string Id { get; set; }
 
-        public string Text
+        public string ResultadoString
         {
-            get => text;
-            set => SetProperty(ref text, value);
-        }
-
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => resultadostring;
+            set => SetProperty(ref resultadostring, value);
         }
 
         public string ItemId
@@ -39,14 +33,13 @@ namespace PesquisaCEP.ViewModels
             }
         }
 
-        public async void LoadItemId(string itemId)
+        public void LoadItemId(string itemId)
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                Database db = new Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PesquisaCEP.db3"));
+                var item =  db.ObterEndereco(itemId);
+                ResultadoString = item.ToString();
             }
             catch (Exception)
             {

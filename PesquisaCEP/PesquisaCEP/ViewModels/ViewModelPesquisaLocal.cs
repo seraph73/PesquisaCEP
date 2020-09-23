@@ -2,31 +2,28 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
-
-using PesquisaCEP.Models;
 using PesquisaCEP.Views;
+using ViaCEP;
+using Data;
+using System.IO;
 
 namespace PesquisaCEP.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ViewModelPesquisaLocal : BaseViewModel
     {
-        private Item _selectedItem;
-        public ObservableCollection<Item> Items { get; }
+        private EnderecoCompleto _selectedItem;
+        public ObservableCollection<EnderecoCompleto> Items { get; }
         public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<EnderecoCompleto> ItemTapped { get; }
 
-        public ItemsViewModel()
+        public ViewModelPesquisaLocal()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<EnderecoCompleto>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
-
-            AddItemCommand = new Command(OnAddItem);
+            ItemTapped = new Command<EnderecoCompleto>(OnItemSelected);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -36,7 +33,8 @@ namespace PesquisaCEP.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                Database db = new Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PesquisaCEP.db3"));
+                var items = await db.ObterEnderecosAsync();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -58,7 +56,7 @@ namespace PesquisaCEP.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public EnderecoCompleto SelectedItem
         {
             get => _selectedItem;
             set
@@ -67,19 +65,13 @@ namespace PesquisaCEP.ViewModels
                 OnItemSelected(value);
             }
         }
-
-        private async void OnAddItem(object obj)
-        {
-            //await Shell.Current.GoToAsync(nameof(NewItemPage));
-        }
-
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(EnderecoCompleto item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(PaginaDetalhesCEP)}?{nameof(ViewModelDetalhesCEP.ItemId)}={item.CEP}");
         }
     }
 }

@@ -6,14 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\nosignal.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Images\nosignal.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.6.0.1141" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
   </ItemGroup>
@@ -24,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\PaginaDetalhesCEP.xaml.cs">
+      <DependentUpon>PaginaDetalhesCEP.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PaginaPesquisaLocal.xaml.cs">
       <DependentUpon>PaginaPesquisaLocal.xaml</DependentUpon>
     </Compile>

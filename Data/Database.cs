@@ -23,6 +23,12 @@ namespace Data
                     select data).ToList();
         }
 
+        public async Task<IEnumerable<EnderecoCompleto>> ObterEnderecosAsync()
+        {
+            return await Task.FromResult((from data in _database.Table<EnderecoCompleto>()
+                                          select data));
+        }
+
         public bool CepJaSalvo(string cep)
         {
             if(_database.Table<EnderecoCompleto>().FirstOrDefault(t => t.CEP == cep) == null)
