@@ -7,6 +7,7 @@ using PesquisaCEP.Views;
 using ViaCEP;
 using Data;
 using System.IO;
+using System.Linq;
 
 namespace PesquisaCEP.ViewModels
 {
@@ -35,6 +36,7 @@ namespace PesquisaCEP.ViewModels
                 Items.Clear();
                 Database db = new Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PesquisaCEP.db3"));
                 var items = await db.ObterEnderecosAsync();
+                items = items.Reverse();
                 foreach (var item in items)
                 {
                     Items.Add(item);
