@@ -24,7 +24,7 @@
                             Clicked="ButtonPesquisar_Clicked" Text="Pesquisar" 
                             Command="{Binding ComandoPesquisar}" 
                             HorizontalOptions="FillAndExpand"
-                            BackgroundColor="Crimson"></Button>
+                            ></Button>
                 </StackLayout>
                 <Frame OutlineColor="Black" Padding="25, 25, 0, 25">
                     <Label x:Name="LabelResultado" Text="{Binding ResultadoString}" FontSize="14" LineBreakMode="WordWrap"
@@ -33,7 +33,7 @@
                 <StackLayout Padding="0, 25, 0, 0">
                     <Button x:Name="ButtonSalvar" IsEnabled="False" Text="Salvar CEP" 
                         Command="{Binding ComandoSalvar}" HorizontalOptions="FillAndExpand"
-                            BackgroundColor="Crimson"></Button>
+                            ></Button>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

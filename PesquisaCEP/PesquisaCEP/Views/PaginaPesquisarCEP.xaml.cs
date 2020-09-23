@@ -26,7 +26,7 @@ namespace PesquisaCEP.Views
 
         private void EntryCep_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(String.IsNullOrWhiteSpace(e.NewTextValue))
+            if(e.NewTextValue.Length != 8 || string.IsNullOrEmpty(e.NewTextValue))
             {
                 ButtonPesquisar.IsEnabled = false;
             }
@@ -34,7 +34,6 @@ namespace PesquisaCEP.Views
             {
                 ButtonPesquisar.IsEnabled = true;
             }
-
             if (string.IsNullOrEmpty(e.NewTextValue))
             {
                 (sender as Entry).Text = "";
@@ -42,7 +41,7 @@ namespace PesquisaCEP.Views
             }
 
             double _;
-            if (!double.TryParse(e.NewTextValue, out _) || e.NewTextValue[e.NewTextValue.Length - 1] == '.')
+            if (!double.TryParse(e.NewTextValue, out _) || e.NewTextValue[e.NewTextValue.Length - 1] == '.' || e.NewTextValue.Length > 8)
             {
                 (sender as Entry).Text = e.OldTextValue;
                 ShakeItOff();
